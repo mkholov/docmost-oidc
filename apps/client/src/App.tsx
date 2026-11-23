@@ -40,6 +40,7 @@ const Billing = lazyWithPrefetch(() => import("@/ee/billing/pages/billing.tsx"))
 const CloudLogin = lazyWithPrefetch(() => import("@/ee/pages/cloud-login.tsx"));
 const CreateWorkspace = lazyWithPrefetch(() => import("@/ee/pages/create-workspace.tsx"));
 const Security = lazyWithPrefetch(() => import("@/ee/security/pages/security.tsx"));
+const OidcSettings = lazyWithPrefetch(() => import("@/pages/settings/sso/oidc-settings.tsx"));
 const License = lazyWithPrefetch(() => import("@/ee/licence/pages/license.tsx"));
 const SharedPage = lazyWithPrefetch(() => import("@/pages/share/shared-page.tsx"));
 const PdfRenderPage = lazyWithPrefetch(() => import("@/ee/pdf-export/pdf-render-page.tsx"));
@@ -233,6 +234,7 @@ export default function App() {
             <Route path={"spaces"} element={<Spaces />} />
             <Route path={"sharing"} element={<Shares />} />
             <Route path={"security"} element={<Security />} />
+            <Route path={"sso"} element={<OidcSettings />} />
             <Route path={"ai"} element={<AiSettings />} />
             <Route path={"ai/mcp"} element={<AiSettings />} />
             <Route path={"audit"} element={<AuditLogs />} />
