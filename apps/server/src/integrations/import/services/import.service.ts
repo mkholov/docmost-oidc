@@ -32,6 +32,7 @@ import { QueueJob, QueueName } from '../../queue/constants';
 import { ModuleRef } from '@nestjs/core';
 import { loadImportHtml } from '../utils/import-dates';
 import { normalizeImportHtml } from '../utils/import-formatter';
+import { DocxImportService as CommunityDocxImportService } from './docx-import.service';
 
 @Injectable()
 export class ImportService {
@@ -167,23 +168,20 @@ export class ImportService {
     pageId: string,
     userId: string,
   ): Promise<any> {
-    let DocxImportModule: any;
+    let docxServiceToken: any = CommunityDocxImportService;
     try {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      DocxImportModule = require('./../../../ee/document-import/docx-import.service');
+      docxServiceToken = require('./../../../ee/document-import/docx-import.service')
+        .DocxImportService;
     } catch (err) {
-      this.logger.error(
-        'DOCX import requested but EE module not bundled in this build',
-      );
-      throw new BadRequestException(
-        'This feature requires a valid enterprise license.',
+      this.logger.debug(
+        'EE DOCX import not bundled; using the community DOCX importer',
       );
     }
 
-    const docxImportService = this.moduleRef.get(
-      DocxImportModule.DocxImportService,
-      { strict: false },
-    );
+    const docxImportService = this.moduleRef.get(docxServiceToken, {
+      strict: false,
+    });
 
     const html = await docxImportService.convertDocxToHtml(
       fileBuffer,

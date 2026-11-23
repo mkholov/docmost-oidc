@@ -97,7 +97,8 @@ function ImportFormatSelection({ spaceId, onClose }: ImportFormatSelection) {
   const zipFileRef = useRef<() => void>(null);
 
   const canUseConfluence = useHasFeature(Feature.CONFLUENCE_IMPORT);
-  const canUseDocx = useHasFeature(Feature.DOCX_IMPORT);
+  // community DOCX importer is always available
+  const canUseDocx = true;
   const canUsePdf = useHasFeature(Feature.PDF_IMPORT);
   const upgradeLabel = useUpgradeLabel();
 
