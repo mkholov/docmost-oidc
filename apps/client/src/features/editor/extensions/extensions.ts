@@ -534,6 +534,13 @@ export const getTemplateExtensions = (onEditPlaceholder: () => void) => [
   UndoRedo,
 ] as any;
 
+/** Editable, non-collaborative extensions for the community template editor. */
+export const templateEditorExtensions = [
+  ...mainExtensions.filter((ext: any) => ext !== SlashCommand),
+  TemplateSlashCommand,
+  UndoRedo,
+] as any;
+
 export const collabExtensions: CollabExtensions = (provider, user) => [
   Collaboration.configure({
     document: provider.document,

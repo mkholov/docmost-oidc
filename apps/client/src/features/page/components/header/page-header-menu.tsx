@@ -6,6 +6,7 @@ import {
   IconEye,
   IconEyeOff,
   IconFileExport,
+  IconTemplate,
   IconHistory,
   IconLink,
   IconList,
@@ -25,6 +26,7 @@ import { useAsideTriggerProps } from "@/hooks/use-toggle-aside.tsx";
 import { useAtom, useAtomValue } from "jotai";
 import { historyAtoms } from "@/features/page-history/atoms/history-atoms.ts";
 import { useDisclosure, useHotkeys } from "@mantine/hooks";
+import CreateTemplateModal from "@/features/template/components/create-template-modal.tsx";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useParams } from "react-router-dom";
 import { usePageQuery } from "@/features/page/queries/page-query.ts";
@@ -186,6 +188,10 @@ function PageActionMenu({ readOnly }: PageActionMenuProps) {
   const [
     presentationOpened,
     { open: openPresentationModal, close: closePresentationModal },
+  ] = useDisclosure(false);
+  const [
+    saveTemplateOpened,
+    { open: openSaveTemplateModal, close: closeSaveTemplateModal },
   ] = useDisclosure(false);
   const [pageEditor] = useAtom(pageEditorAtom);
   const pageUpdatedAt = useTimeAgo(page?.updatedAt);
@@ -380,6 +386,13 @@ function PageActionMenu({ readOnly }: PageActionMenuProps) {
             </Menu.Item>
           )}
 
+          <Menu.Item
+            leftSection={<IconTemplate size={16} />}
+            onClick={openSaveTemplateModal}
+          >
+            {t("Save as template")}
+          </Menu.Item>
+
           <Tooltip
             label={exportDisabledLabel}
             disabled={!exportDisabled}
@@ -471,6 +484,17 @@ function PageActionMenu({ readOnly }: PageActionMenuProps) {
         id={page.id}
         open={exportOpened}
         onClose={closeExportModal}
+      />
+
+      <CreateTemplateModal
+        opened={saveTemplateOpened}
+        onClose={closeSaveTemplateModal}
+        fromPageId={page.id}
+        defaultTitle={page.title}
+        defaultSpaceId={page.spaceId}
+        getContent={() =>
+          pageEditor && !pageEditor.isDestroyed ? pageEditor.getJSON() : undefined
+        }
       />
 
       <MovePageModal

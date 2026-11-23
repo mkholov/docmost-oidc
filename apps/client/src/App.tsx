@@ -86,9 +86,9 @@ const VerifiedPages = lazyWithPrefetch(
 const Announcements = lazyWithPrefetch(
   () => import("@/ee/announcement/pages/announcements"),
 );
-const TemplateList = lazyWithPrefetch(() => import("@/ee/template/pages/template-list"));
+const TemplateList = lazyWithPrefetch(() => import("@/pages/templates/template-list"));
 const TemplateEditor = lazyWithPrefetch(
-  () => import("@/ee/template/pages/template-editor"),
+  () => import("@/pages/templates/template-editor"),
 );
 const FavoritesPage = lazyWithPrefetch(() => import("@/pages/favorites/favorites-page"));
 const UserProfilePage = lazyWithPrefetch(() => import("@/pages/user/user-profile-page"));

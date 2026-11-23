@@ -20,14 +20,13 @@ import {
 } from "@/features/editor/atoms/editor-atoms";
 import { useHasFeature } from "@/ee/hooks/use-feature";
 import { Feature } from "@/ee/features";
-import { ITemplate, type TemplateVariableValues } from "@/ee/template/types/template.types";
-import { applyTemplate } from "@/ee/template/services/template-service.ts";
-import { applyTemplateToPage } from "@/ee/template/template.utils";
+import { ITemplate } from "@/features/template/types/template.types.ts";
+import { applyTemplateToEditors } from "@/features/template/components/apply-template.ts";
 import { isBetaBaseForms } from "@/lib/config.ts";
 import classes from "./empty-page-get-started.module.css";
 
 const TemplatePickerModal = lazy(
-  () => import("@/ee/template/components/template-picker-modal"),
+  () => import("@/features/template/components/template-picker-modal.tsx"),
 );
 
 type EmptyPageGetStartedProps = {
@@ -46,7 +45,8 @@ export function EmptyPageGetStarted({
   const titleEditor = useAtomValue(titleEditorAtom);
   const isSynced = useAtomValue(yjsSyncedAtom);
   const hasBases = useHasFeature(Feature.BASES);
-  const hasTemplates = useHasFeature(Feature.TEMPLATES);
+  // community templates are always available
+  const hasTemplates = true;
   const convertMutation = useConvertPageToBaseMutation();
   const [
     templatePickerOpened,
@@ -66,37 +66,11 @@ export function EmptyPageGetStarted({
     };
   }, [editor]);
 
-  const handleUseTemplate = async (
-    selected: ITemplate,
-    variableValues?: TemplateVariableValues,
-  ) => {
-    if (!editor || editor.isDestroyed || !titleEditor || titleEditor.isDestroyed) {
+  const handleUseTemplate = async (selected: ITemplate) => {
+    if (!editor || editor.isDestroyed) {
       return false;
     }
-    if (!editor.isEmpty) {
-      notifications.show({
-        message: t("This page is no longer empty"),
-        color: "red",
-      });
-      return false;
-    }
-
-    let template: ITemplate;
-    try {
-      template = await applyTemplate({ template: selected, pageId, variableValues });
-    } catch (error) {
-      notifications.show({
-        message: t(error.response?.data?.message || "Failed to load template"),
-        color: "red",
-      });
-      return false;
-    }
-
-    if (editor.isDestroyed || titleEditor.isDestroyed) {
-      return false;
-    }
-
-    if (!applyTemplateToPage(editor, titleEditor, template)) {
+    if (!applyTemplateToEditors(editor, titleEditor, selected)) {
       notifications.show({
         message: t("This page is no longer empty"),
         color: "red",
@@ -203,7 +177,6 @@ export function EmptyPageGetStarted({
             <TemplatePickerModal
               opened={templatePickerOpened}
               onClose={closeTemplatePicker}
-              initialSpaceId={spaceId}
               onUse={handleUseTemplate}
             />
           </Suspense>

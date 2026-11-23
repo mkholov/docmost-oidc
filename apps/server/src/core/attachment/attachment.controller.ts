@@ -58,6 +58,7 @@ import {
 import WorkspaceAbilityFactory from '../casl/abilities/workspace-ability.factory';
 import { PageRepo } from '@docmost/db/repos/page/page.repo';
 import { TemplateRepo } from '@docmost/db/repos/template/template.repo';
+import { TemplateAccessService as CommunityTemplateAccessService } from '../template/template-access.service';
 import { SpaceMemberRepo } from '@docmost/db/repos/space/space-member.repo';
 import { AttachmentRepo } from '@docmost/db/repos/attachment/attachment.repo';
 import { validate as isValidUUID } from 'uuid';
@@ -638,21 +639,28 @@ export class AttachmentController {
     user: User,
     workspace: Workspace,
   ): Promise<Template> {
-    let TemplateAccessModule: any;
+    let accessServiceToken: any = CommunityTemplateAccessService;
     try {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      TemplateAccessModule = require('./../../ee/template/services/template-access.service');
+      accessServiceToken = require('./../../ee/template/services/template-access.service')
+        .TemplateAccessService;
     } catch (err) {
       this.logger.debug(
-        'Template module requested but EE module not bundled in this build',
+        'EE template module not bundled; using the community template access rules',
       );
-      throw new NotFoundException('Template not found');
     }
 
-    const templateAccessService = this.moduleRef.get(
-      TemplateAccessModule.TemplateAccessService,
-      { strict: false },
-    );
+    let templateAccessService: any;
+    try {
+      templateAccessService = this.moduleRef.get(accessServiceToken, {
+        strict: false,
+      });
+    } catch {
+      templateAccessService = undefined;
+    }
+    if (!templateAccessService) {
+      throw new NotFoundException('Template not found');
+    }
     return templateAccessService.findEditableTemplate(
       templateId,
       user,

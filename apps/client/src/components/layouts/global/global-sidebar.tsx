@@ -23,14 +23,12 @@ import {
   prefetchSpace,
   prefetchSpacesPage,
 } from "@/features/space/queries/space-query";
-import { prefetchTemplates } from "@/ee/template/queries/template-query";
+import { prefetchTemplates } from "@/features/template/queries/template-query";
 import { getSpaceUrl } from "@/lib/config";
 import { useDisclosure } from "@mantine/hooks";
 import { WorkspaceInviteForm } from "@/features/workspace/components/members/components/workspace-invite-form";
 import { CustomAvatar } from "@/components/ui/custom-avatar";
 import { AvatarIconType } from "@/features/attachments/types/attachment.types";
-import { useHasFeature } from "@/ee/hooks/use-feature";
-import { Feature } from "@/ee/features";
 import { useUpgradeLabel } from "@/ee/hooks/use-upgrade-label";
 
 export default function GlobalSidebar() {
@@ -39,7 +37,6 @@ export default function GlobalSidebar() {
   const [active, setActive] = useState(location.pathname);
   const [mobileSidebarOpened] = useAtom(mobileSidebarAtom);
   const toggleMobileSidebar = useToggleSidebar(mobileSidebarAtom);
-  const hasTemplates = useHasFeature(Feature.TEMPLATES);
   const upgradeLabel = useUpgradeLabel();
   const mainNavItems = [
     { label: "Home", icon: IconHome, path: "/home" },
@@ -59,7 +56,8 @@ export default function GlobalSidebar() {
       label: "Templates",
       icon: IconTemplate,
       path: "/templates",
-      disabled: !hasTemplates,
+      // community templates are always available
+      disabled: false,
       prefetch: () => prefetchTemplates(),
     },
   ];
