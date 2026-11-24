@@ -2461,5 +2461,21 @@
   "Save the template first": "Save the template first",
   "You can use this template but not edit it.": "You can use this template but not edit it.",
   "Template title": "Template title",
-  "Type / to insert blocks. Press Ctrl+S to save.": "Type / to insert blocks. Press Ctrl+S to save."
+  "Type / to insert blocks. Press Ctrl+S to save.": "Type / to insert blocks. Press Ctrl+S to save.",
+  "Remove restriction": "Remove restriction",
+  "Everyone in the space will be able to open this page again. Continue?": "Everyone in the space will be able to open this page again. Continue?",
+  "Access is also limited by the parent page": "Access is also limited by the parent page",
+  "People need access there as well.": "People need access there as well.",
+  "General access": "General access",
+  "Only the people and groups below can open this page and its subpages": "Only the people and groups below can open this page and its subpages",
+  "Everyone in the space can open this page": "Everyone in the space can open this page",
+  "Space members": "Space members",
+  "Only selected people": "Only selected people",
+  "Only people who can edit this page can change its access.": "Only people who can edit this page can change its access.",
+  "Choose “Only selected people” to hide this page and its subpages from the rest of the space.": "Choose “Only selected people” to hide this page and its subpages from the rest of the space.",
+  "{{count}} members": "{{count}} members",
+  "Failed to update access": "Failed to update access",
+  "Page access restricted": "Page access restricted",
+  "Page access restored": "Page access restored",
+  "Access granted": "Access granted"
 }

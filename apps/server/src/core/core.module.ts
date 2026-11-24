@@ -30,6 +30,7 @@ import { FavoriteModule } from './favorite/favorite.module';
 import { SessionModule } from './session/session.module';
 import { OidcModule } from './oidc/oidc.module';
 import { TemplateModule } from './template/template.module';
+import { PageRestrictionModule } from './page-restriction/page-restriction.module';
 import { ClsMiddleware } from 'nestjs-cls';
 
 @Module({
@@ -58,6 +59,7 @@ import { ClsMiddleware } from 'nestjs-cls';
     SessionModule,
     OidcModule,
     TemplateModule,
+    PageRestrictionModule,
   ],
 })
 export class CoreModule implements NestModule {

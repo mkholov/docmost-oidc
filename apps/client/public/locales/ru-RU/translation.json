@@ -2401,5 +2401,21 @@
   "Save the template first": "Сначала сохраните шаблон",
   "You can use this template but not edit it.": "Вы можете использовать этот шаблон, но не редактировать его.",
   "Template title": "Название шаблона",
-  "Type / to insert blocks. Press Ctrl+S to save.": "Нажмите / для вставки блоков, Ctrl+S — чтобы сохранить."
+  "Type / to insert blocks. Press Ctrl+S to save.": "Нажмите / для вставки блоков, Ctrl+S — чтобы сохранить.",
+  "Remove restriction": "Снять ограничение",
+  "Everyone in the space will be able to open this page again. Continue?": "Все участники пространства снова смогут открыть эту страницу. Продолжить?",
+  "Access is also limited by the parent page": "Доступ также ограничен родительской страницей",
+  "People need access there as well.": "Людям нужен доступ и к ней.",
+  "General access": "Общий доступ",
+  "Only the people and groups below can open this page and its subpages": "Открыть эту страницу и её подстраницы могут только люди и группы из списка ниже",
+  "Everyone in the space can open this page": "Эту страницу могут открыть все участники пространства",
+  "Space members": "Участники пространства",
+  "Only selected people": "Только выбранные люди",
+  "Only people who can edit this page can change its access.": "Менять доступ могут только те, кто может редактировать эту страницу.",
+  "Choose “Only selected people” to hide this page and its subpages from the rest of the space.": "Выберите «Только выбранные люди», чтобы скрыть эту страницу и её подстраницы от остальных участников пространства.",
+  "{{count}} members": "Участников: {{count}}",
+  "Failed to update access": "Не удалось изменить доступ",
+  "Page access restricted": "Доступ к странице ограничен",
+  "Page access restored": "Ограничение доступа снято",
+  "Access granted": "Доступ выдан"
 }
