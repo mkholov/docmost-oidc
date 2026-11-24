@@ -228,7 +228,8 @@ export default function SettingsSidebar() {
           {t(group.heading)}
         </Text>
         {group.items.map((item) => {
-          if (!canShowItem(item)) {
+          // hide paid sections that are not available instead of greying them out
+          if (!canShowItem(item) || isItemDisabled(item)) {
             return null;
           }
 
